@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+<head th:fragment="head(title)">
+    <meta charset="UTF-8">
+    <th:block th:replace="${title}"/>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+</head>
+<body>
+
+<section th:fragment="navbar">
+    <nav class="navbar navbar-expand-lg bg-primary">
+        <div class="container-fluid">
+            <img th:src="@{/images/weather.jpg}"
+                 width="35" height="35" class="rounded-circle" alt="">
+            <a class="text-white ms-3 nav-link fw-bold" href="#">Home</a>
+            <div class="collapse navbar-collapse " id="navbarSupportedContent">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0 ">
+                    <li class="nav-item d-flex align-items-center gap-2 " sec:authorize="isAuthenticated()">
+                        <span class="nav-link text-white fw-bold" th:text="${#authentication.getName()}">Username</span>
+
+                        <img th:if="${#authentication.principal.photoUrl != null}"
+                             th:src="@{/file/view/{photo}(photo=${#authentication.principal.photoUrl})}"
+                             width="32" height="32" class="rounded-circle" alt="Profile">
+
+                        <img th:unless="${#authentication.principal.photoUrl != null}"
+                             th:src="@{/images/default.png}"
+                             width="32" height="32" class="rounded-circle" alt="">
+                    </li>
+                    <li class="nav-item" sec:authorize="isAuthenticated()">
+                        <a class="nav-link text-white fw-bold" th:href="@{/auth/logout}">logout</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</section>
+
+<section th:fragment="js_links">
+    <script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+</section>
+
+</body>
+</html>

@@ -60,4 +60,12 @@ public class CustomUserDetails implements UserDetails {
     public boolean isEnabled() {
         return authUser.isEnabled();
     }
+
+    public AuthUser getAuthUser() {
+        return authUser;
+    }
+
+    public String getPhotoUrl(){
+        return authUser.getPhotoUrl();
+    }
 }

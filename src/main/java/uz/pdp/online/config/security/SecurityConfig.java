@@ -22,6 +22,7 @@ public class SecurityConfig {
     private final CustomAuthenticationFailureHandler customAuthenticationFailureHandler;
     private final List<String > WHITE_LIST = List.of(
             "/css/**",
+            "/images/**",
             "/js/**",
             "/auth/login",
             "/auth/register",
@@ -51,7 +52,7 @@ public class SecurityConfig {
                 .loginPage("/auth/login")
                 .usernameParameter("username")
                 .passwordParameter("password")
-                .defaultSuccessUrl("/todos", false)
+                .defaultSuccessUrl("/home", false)
                 .failureHandler(customAuthenticationFailureHandler)
         );
 
