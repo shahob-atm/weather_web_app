@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="fragments :: head(~{::title})">
+    <meta charset="UTF-8">
+    <title>Subscriptions | Admin Page</title>
+</head>
+
+<body>
+<section th:replace="fragments :: navbar"></section>
+
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-12 d-flex align-items-center justify-content-start flex-column">
+            <ul class="list-group w-100" th:each="city : ${cities}">
+                <li class="list-group-item p-2 mb-3 w-100 d-flex align-items-center justify-content-start border rounded shadow-sm">
+                    <div class="p-2 d-flex align-items-center justify-content-start" style="width: 100px;">
+                        <span class="fw-bold" th:text="${city.getId()}"></span>
+                    </div>
+
+                    <div class="p-2 d-flex align-items-center justify-content-center" style="width: 120px;">
+                        <span class="fw-bold" th:text="${city.getName()}"></span>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+</body>
+
+</html>

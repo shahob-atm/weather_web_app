@@ -1,23 +1,24 @@
 <!DOCTYPE html>
-<html lang="en"
-      xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+
 <head th:fragment="head(title)">
     <meta charset="UTF-8">
     <th:block th:replace="${title}"/>
     <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
 </head>
+
 <body>
 
 <section th:fragment="navbar">
     <nav class="navbar navbar-expand-lg bg-primary">
         <div class="container-fluid">
-            <img th:src="@{/images/weather.jpg}"
-                 width="35" height="35" class="rounded-circle" alt="">
-            <a class="text-white ms-3 nav-link fw-bold" href="#">Home</a>
-            <div class="collapse navbar-collapse " id="navbarSupportedContent">
-                <ul class="navbar-nav ms-auto mb-2 mb-lg-0 ">
-                    <li class="nav-item d-flex align-items-center gap-2 " sec:authorize="isAuthenticated()">
+            <img th:src="@{/images/weather.jpg}" width="35" height="35" class="rounded-circle" alt="">
+            <a class="text-white ms-3 nav-link fw-bold" th:href="@{/home}">Home</a>
+            <a class="text-white ms-3 nav-link fw-bold" th:href="@{/auth/users}" sec:authorize="hasAnyRole('ADMIN')">Users</a>
+            <a class="text-white ms-3 nav-link fw-bold" th:href="@{/city/cities}" sec:authorize="hasAnyRole('ADMIN')">Cities</a>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                    <li class="nav-item d-flex align-items-center gap-2" sec:authorize="isAuthenticated()">
                         <span class="nav-link text-white fw-bold" th:text="${#authentication.getName()}">Username</span>
 
                         <img th:if="${#authentication.principal.photoUrl != null}"
@@ -42,4 +43,5 @@
 </section>
 
 </body>
+
 </html>

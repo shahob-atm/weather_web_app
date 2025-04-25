@@ -1,15 +1,20 @@
 package uz.pdp.online.controller;
 
 import jakarta.validation.Valid;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import uz.pdp.online.dto.UserProjectionDto;
 import uz.pdp.online.dto.UserRegisterDto;
+import uz.pdp.online.dto.UserUpdateDto;
 import uz.pdp.online.service.AuthUserService;
 
 import java.io.IOException;
+import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/auth")
@@ -57,5 +62,26 @@ public class AuthController {
         authUserService.registerUser(userRegisterDto, file);
 
         return "redirect:/auth/login";
+    }
+
+    @GetMapping("/users")
+    @PreAuthorize("hasAnyRole('ADMIN')")
+    public String usersPage(Model model) {
+        List<UserProjectionDto> users = authUserService.getUsers();
+        model.addAttribute("users", users);
+        return "users";
+    }
+
+    @GetMapping("/edit/{id}")
+    public String editPage(@PathVariable("id") long id, Model model) {
+        Optional<UserUpdateDto> dto = authUserService.getUserById(id);
+        dto.ifPresent(userUpdateDto -> model.addAttribute("dto", userUpdateDto));
+        return "userEdit";
+    }
+
+    @PostMapping("/update")
+    public String update(@ModelAttribute UserUpdateDto userUpdateDto) {
+        authUserService.update(userUpdateDto);
+        return "redirect:/auth/users";
     }
 }

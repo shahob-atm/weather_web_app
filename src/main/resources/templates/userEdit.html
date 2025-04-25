@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments :: head(~{::title})">
+    <meta charset="UTF-8">
+    <title>User Edit | Admin Page</title>
+</head>
+<body>
+<section th:replace="fragments :: navbar"></section>
+<div class="container mt-4">
+    <div class="card shadow">
+        <div class="card-header bg-primary text-white">
+            <h2 class="mb-0">Edit User</h2>
+        </div>
+        <div class="card-body">
+            <form th:action="@{/auth/update}" th:object="${dto}" method="post">
+                <input type="hidden" th:field="*{id}" />
+
+                <div class="mb-3">
+                    <label for="username" class="form-label">Username:</label>
+                    <input type="text" th:field="*{username}" id="username" class="form-control" required/>
+                </div>
+                <button type="submit" class="btn btn-success">Update</button>
+                <a th:href="@{/auth/users}" class="btn btn-secondary">Back to users</a>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Access Denied</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+</head>
+<body class="bg-light text-center mt-5">
+<div class="container">
+    <h1 class="display-4 text-danger">403 - Forbidden</h1>
+    <p class="lead">Sizda bu sahifaga kirish huquqi yo'q.</p>
+    <a th:href="@{/home}" class="btn btn-primary mt-3">Bosh sahifaga qaytish</a>
+</div>
+</body>
+</html>

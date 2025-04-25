@@ -5,12 +5,16 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import uz.pdp.online.dao.AuthUserDao;
 import uz.pdp.online.domain.AuthUser;
+import uz.pdp.online.dto.UserProjectionDto;
 import uz.pdp.online.dto.UserRegisterDto;
+import uz.pdp.online.dto.UserUpdateDto;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
+import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -42,5 +46,17 @@ public class AuthUserService {
                 .build();
 
         authUserDao.saveAuthUser(authUser);
+    }
+
+    public List<UserProjectionDto> getUsers() {
+        return authUserDao.getUsers();
+    }
+
+    public Optional<UserUpdateDto> getUserById(long id) {
+        return authUserDao.getUserById(id);
+    }
+
+    public void update(UserUpdateDto userUpdateDto) {
+        authUserDao.update(userUpdateDto);
     }
 }

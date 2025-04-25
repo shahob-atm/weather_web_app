@@ -7,9 +7,12 @@ import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Component;
 import uz.pdp.online.domain.AuthUser;
+import uz.pdp.online.dto.UserProjectionDto;
+import uz.pdp.online.dto.UserUpdateDto;
 
 import java.sql.PreparedStatement;
 import java.sql.Statement;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -57,5 +60,39 @@ public class AuthUserDao {
         } catch (EmptyResultDataAccessException e) {
             return Optional.empty();
         }
+    }
+
+    public List<UserProjectionDto> getUsers() {
+        String sql = "SELECT id, username, photo_url FROM auth_user";
+
+        return jdbcTemplate.query(sql, (rs, rowNum) -> {
+            UserProjectionDto dto = new UserProjectionDto();
+            dto.setId(rs.getLong("id"));
+            dto.setUsername(rs.getString("username"));
+            dto.setPhotoUrl(rs.getString("photo_url"));
+            return dto;
+        });
+    }
+
+    public Optional<UserUpdateDto> getUserById(long id) {
+        final String sql = "SELECT * FROM auth_user WHERE id = ?";
+
+        try {
+            UserUpdateDto userUpdateDto = jdbcTemplate.queryForObject(sql, new Object[]{id}, (rs, rowNum) -> {
+                UserUpdateDto dto = new UserUpdateDto();
+                dto.setId(rs.getLong("id"));
+                dto.setUsername(rs.getString("username"));
+                return dto;
+            });
+            return Optional.ofNullable(userUpdateDto);
+        } catch (EmptyResultDataAccessException e) {
+            return Optional.empty();
+        }
+    }
+
+    public void update(UserUpdateDto userUpdateDto) {
+        String sql = "UPDATE auth_user SET username = ? WHERE id = ?";
+
+        jdbcTemplate.update(sql, userUpdateDto.getUsername(), userUpdateDto.getId());
     }
 }

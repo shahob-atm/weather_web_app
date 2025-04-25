@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="fragments :: head(~{::title})">
+    <meta charset="UTF-8">
+    <title>City | Weather</title>
+</head>
+
+<body>
+<section th:replace="fragments :: navbar"></section>
+
+<div class="container mt-4">
+    <div class="row p-1 d-flex align-items-center justify-content-between mb-2">
+        <!-- City Name -->
+        <h5 class="mb-2" th:text="${city.getName()}"></h5>
+
+        <!-- Select Form -->
+        <form th:action="@{/weather/{id}(id=${cityId})}" method="get" id="weatherForm" class="d-flex w-25">
+            <select class="form-select" name="days" aria-label="Choose one for weather info" onchange="this.form.submit()">
+                <option value="1" th:selected="${days == 1}">day</option>
+                <option value="7" th:selected="${days == 7}">week</option>
+                <option value="30" th:selected="${days == 30}">month</option>
+            </select>
+        </form>
+    </div>
+
+    <div class="row">
+        <div class="col-12 d-flex align-items-center justify-content-start flex-column">
+            <ul class="list-group w-100" th:each="weat : ${weathers}">
+                <li class="list-group-item p-2 mb-3 w-100 d-flex align-items-center justify-content-between border rounded shadow-sm">
+                    <!-- Description -->
+                    <div class="p-2 d-flex align-items-center justify-content-start" style="width: 120px;">
+                        <span th:text="${weat.getDescription()}"></span>
+                    </div>
+
+                    <!-- Date and Time -->
+                    <div class="p-2 d-flex align-items-center justify-content-center" style="width: 180px;">
+                        <span th:text="${#temporals.format(weat.getDateTime(), 'yyyy-MM-dd HH:mm')}"></span>
+                    </div>
+
+                    <!-- Temperature -->
+                    <div class="p-2 d-flex align-items-center justify-content-center" style="width: 120px;">
+                        <span th:text="${weat.getTemperature()} + '°C'"></span>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+</body>
+
+</html>
