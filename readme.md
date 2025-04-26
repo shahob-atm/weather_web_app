@@ -25,5 +25,3 @@ Users can register, login, and subscribe to available cities.
 Users can view weather information for the cities they have subscribed to.
 
 Administrators can manage users and cities (add, edit, and list).
-
-The application follows best practices to help beginners understand the core principles of building web applications using Spring MVC.
