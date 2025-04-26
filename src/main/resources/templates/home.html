@@ -2,9 +2,10 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments :: head(~{::title})">
     <meta charset="UTF-8">
-    <title>Home | Weather</title>
+    <title>Home | Weather System</title>
 </head>
 <body>
+
 <section th:replace="fragments :: navbar"></section>
 
 <div class="container mt-4">
@@ -26,12 +27,15 @@
                         <button type="submit" class="btn btn-primary">Subscribe</button>
                     </form>
 
-                    <a class="text-decoration-none mt-3" th:if="${city.isSubscribed()}"
-                       th:href="@{/weather/{id}(id=${city.getCityId()})}">Go to weather info</a>
+                    <a class="text-decoration-none mt-3 d-block" th:if="${city.isSubscribed()}"
+                       th:href="@{/weather/{id}(id=${city.getCityId()})}">
+                        Go to weather info
+                    </a>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
 </body>
 </html>
