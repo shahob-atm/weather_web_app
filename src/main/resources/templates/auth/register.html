@@ -1,22 +1,22 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-
 <head>
     <meta charset="UTF-8">
     <title>Register Form | Weather System</title>
     <link rel="stylesheet" th:href="@{/css/register.css}">
     <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" />
 </head>
 
 <body>
-
 <div class="main_div">
     <div class="title">Register Form</div>
-    <div class="social_icons">
-    </div>
+
+    <div class="social_icons"></div>
 
     <form th:action="@{/auth/register}" enctype="multipart/form-data" method="post" th:object="${dto}">
+
+        <!-- Username Field -->
         <div class="input_box">
             <input type="text" th:field="*{username}" placeholder="Username">
             <div class="icon"><i class="fas fa-user"></i></div>
@@ -24,6 +24,8 @@
         <div class="error-message" th:if="${#fields.hasErrors('username')}">
             <span th:each="er : ${#fields.errors('username')}" th:text="#{${er}}"></span>
         </div>
+
+        <!-- Password Field -->
         <div class="input_box">
             <input type="password" th:field="*{password}" placeholder="Password">
             <div class="icon"><i class="fas fa-lock"></i></div>
@@ -31,6 +33,8 @@
         <div class="error-message" th:if="${#fields.hasErrors('password')}">
             <span th:each="er : ${#fields.errors('password')}" th:text="#{${er}}"></span>
         </div>
+
+        <!-- Confirm Password Field -->
         <div class="input_box">
             <input type="password" th:field="*{confirmPassword}" placeholder="Confirm Password">
             <div class="icon"><i class="fas fa-lock"></i></div>
@@ -38,19 +42,26 @@
         <div class="error-message" th:if="${#fields.hasErrors('confirmPassword')}">
             <span th:each="er : ${#fields.errors('confirmPassword')}" th:text="#{${er}}"></span>
         </div>
+
+        <!-- Profile Photo Upload -->
         <div class="input_box">
             <input type="file" name="file">
         </div>
-        <div class="option_div">
-        </div>
+
+        <!-- Option Div (currently empty) -->
+        <div class="option_div"></div>
+
+        <!-- Submit Button -->
         <div class="input_box button">
             <input type="submit" value="Submit">
         </div>
+
+        <!-- Link to Login -->
         <div class="sign_up">
-            You have account? <a th:href="@{/auth/login}">Go to login</a>
+            You have an account? <a th:href="@{/auth/login}">Go to login</a>
         </div>
+
     </form>
 </div>
-
 </body>
 </html>

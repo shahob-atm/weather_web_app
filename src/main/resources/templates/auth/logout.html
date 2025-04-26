@@ -1,25 +1,33 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+
 <head th:replace="fragments :: head(~{::title})">
     <meta charset="UTF-8">
     <title>Logout</title>
 </head>
+
 <body>
+
 <div class="container">
     <div class="row">
-        <div class="col-md-8 offset-2 mt-5">
-            <h1 class="text-center" th:text="#{logout}"></h1>
+        <div class="col-md-8 offset-md-2 mt-5">
+            <h1 class="text-center" th:text="logout"></h1>
+
             <form method="post" action="/auth/logout">
                 <div class="alert alert-danger">
                     Are you sure?
                 </div>
-                <button type="submit" class="btn btn-danger" th:text="logout"></button>
-                <a href="/home" class="btn btn-primary" th:text="back"></a>
+
+                <div class="d-flex gap-2">
+                    <button type="submit" class="btn btn-danger" th:text="logout"></button>
+                    <a href="/home" class="btn btn-primary" th:text="back"></a>
+                </div>
             </form>
         </div>
     </div>
 </div>
 
 <section th:replace="fragments :: js_links"></section>
+
 </body>
 </html>
